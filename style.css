@@ -1,0 +1,91 @@
+:root {
+  --fog: #e6edf1;
+  --paper: #f8fafb;
+  --ink: #12213a;
+  --muted: #5b6b80;
+  --line: #cbd6de;
+  --accent: #0f7b6c;
+  --accent-ink: #ffffff;
+  --break: #b4552d;
+  --ring: var(--accent);
+  --radius: 14px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fog: #0e1726; --paper: #16233a; --ink: #e8eef5; --muted: #93a3b8;
+    --line: #2a3b57; --accent: #3cc2ad; --accent-ink: #072620; --break: #f0a070;
+  }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  margin: 0; background: var(--fog); color: var(--ink);
+  font: 400 1rem/1.5 "Figtree", system-ui, sans-serif;
+}
+body.is-break { --ring: var(--break); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+.desk {
+  max-width: 980px; margin: 0 auto; padding: 2rem 1.25rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start;
+}
+@media (max-width: 760px) { .desk { grid-template-columns: 1fr; gap: 2rem; } }
+
+.timer { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+.modes { display: flex; gap: .25rem; padding: .25rem; background: var(--paper); border: 1px solid var(--line); border-radius: 999px; }
+.mode {
+  border: 0; background: transparent; color: var(--muted); font: 600 .9rem "Figtree", sans-serif;
+  padding: .5rem 1rem; border-radius: 999px; cursor: pointer;
+}
+.mode.is-active { background: var(--ink); color: var(--paper); }
+
+.dial { position: relative; width: min(100%, 360px); aspect-ratio: 1; }
+.dial svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.track, .progress { fill: none; stroke-width: 6; }
+.track { stroke: var(--line); }
+.progress {
+  stroke: var(--ring); stroke-linecap: round;
+  stroke-dasharray: 578.05; stroke-dashoffset: 0; transition: stroke-dashoffset .4s linear;
+}
+.readout { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 0 2.5rem; }
+#time {
+  font: 800 clamp(4rem, 14vw, 5.75rem)/1 "Bricolage Grotesque", system-ui, sans-serif;
+  letter-spacing: -.03em; font-variant-numeric: tabular-nums;
+}
+.current { margin: .5rem 0 0; color: var(--muted); font-size: .95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; }
+
+.controls { display: flex; gap: .75rem; }
+.btn {
+  font: 600 1rem "Figtree", sans-serif; padding: .7rem 1.4rem; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer;
+}
+.btn:hover { border-color: var(--ink); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { filter: brightness(1.08); border-color: var(--accent); }
+.count { margin: 0; color: var(--muted); font-size: .9rem; }
+.count strong { color: var(--ink); }
+
+button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.tasks h1 { font: 800 2rem/1.1 "Bricolage Grotesque", system-ui, sans-serif; letter-spacing: -.02em; margin: 0 0 1.25rem; }
+#task-form { display: flex; gap: .5rem; margin-bottom: 1rem; }
+#task-input {
+  flex: 1; min-width: 0; font: inherit; padding: .7rem .9rem; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--paper); color: var(--ink);
+}
+.list { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.task {
+  display: grid; grid-template-columns: auto 1fr auto auto; gap: .75rem; align-items: center;
+  padding: .7rem .9rem; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.task.is-active { border-color: var(--accent); box-shadow: inset 4px 0 0 var(--accent); }
+.task.is-done .label { text-decoration: line-through; color: var(--muted); }
+.task input[type=checkbox] { width: 1.15rem; height: 1.15rem; accent-color: var(--accent); }
+.label { background: none; border: 0; text-align: left; font: inherit; color: inherit; cursor: pointer; padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pomos { color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.del { background: none; border: 0; color: var(--muted); font-size: 1.25rem; line-height: 1; cursor: pointer; padding: .1rem .35rem; border-radius: 6px; }
+.del:hover { color: var(--break); }
+.empty { color: var(--muted); }
+.empty[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) { .progress { transition: none; } }

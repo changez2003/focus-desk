@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Focus Desk – Pomodoro timer and task list</title>
+  <meta name="description" content="A simple Pomodoro timer with a task list. Works offline in your browser.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="desk">
+    <section class="timer" aria-label="Timer">
+      <div class="modes" role="tablist" aria-label="Timer mode">
+        <button role="tab" class="mode is-active" data-mode="focus" aria-selected="true">Focus</button>
+        <button role="tab" class="mode" data-mode="short" aria-selected="false">Short break</button>
+        <button role="tab" class="mode" data-mode="long" aria-selected="false">Long break</button>
+      </div>
+
+      <div class="dial">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="track" cx="100" cy="100" r="92"/>
+          <circle class="progress" id="progress" cx="100" cy="100" r="92"/>
+        </svg>
+        <div class="readout">
+          <output id="time" aria-live="off">25:00</output>
+          <p id="current-task" class="current">No task selected</p>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button id="start" class="btn btn-primary">Start</button>
+        <button id="reset" class="btn">Reset</button>
+      </div>
+      <p class="count">Focus sessions today: <strong id="done-count">0</strong></p>
+    </section>
+
+    <section class="tasks" aria-label="Tasks">
+      <h1>Focus Desk</h1>
+      <form id="task-form" autocomplete="off">
+        <label for="task-input" class="sr-only">New task</label>
+        <input id="task-input" type="text" placeholder="What are you working on?" maxlength="80" required>
+        <button class="btn btn-primary" type="submit">Add task</button>
+      </form>
+      <ul id="task-list" class="list"></ul>
+      <p id="empty" class="empty">No tasks yet. Add one, then press Start.</p>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
